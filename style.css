@@ -1,0 +1,453 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  background: #17131b;
+  color: #fff4df;
+  font-family: "JFドットjiskan24", monospace;
+}
+
+.game {
+  width: min(900px, 92vw);
+  min-height: 540px;
+  padding: 16px;
+  background: #392638;
+  border: 4px solid #f2c078;
+  box-shadow: 0 0 0 4px #17131b, 8px 8px 0 #08070a;
+}
+
+.screen {
+  height: 500px;
+  min-height: 500px;
+  padding: 32px;
+  border: 2px solid #b97858;
+  background:
+    linear-gradient(#241c2bcc, #241c2bcc),
+    repeating-linear-gradient(
+      0deg,
+      #63433e 0 24px,
+      #573a38 24px 48px
+    );
+  overflow: hidden;
+}
+
+#title-screen.is-entering {
+  animation: fade-in 1s ease both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#title-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: fade-in 2s easy both;
+
+  background:
+  linear-gradient(#241c2b66, #241c2b66),
+  url("media/タイトル画面.png") center / cover no-repeat;
+}
+
+.subtitle {
+  color: #f2c078;
+  letter-spacing: 0.25em;
+}
+
+h1 {
+  font-family: "JFドットjiskan24";
+  line-height: 1.8;
+  font-size: clamp(1.6rem, 5vw, 3rem);
+  text-shadow: 3px 3px #6d3f3d;
+}
+
+.pixel-button {
+  margin-top: 24px;
+  padding: 14px 48px;
+  border: 0;
+  background: #d88758;
+  color: #21151b;
+  font: inherit;
+  font-size: 1.3rem;
+  box-shadow: 0 6px 0 #874d45;
+  cursor: pointer;
+}
+
+.pixel-button:hover {
+  background: #f2c078;
+  transform: translateY(-2px);
+}
+
+.pixel-button:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #874d45;
+}
+
+#game-screen {
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+}
+
+#game-screen::before {
+  content: "";
+  position: absolute;
+  inset: 2px; /* 枠の内側に合わせる */
+  z-index: -1;
+  background: url("media/cafe.background.png") center / cover no-repeat;
+}
+
+#game-screen.is-entering::before {
+  animation: fade-in 1s ease both;
+}
+
+.scene {
+  color: #f2c078;
+}
+
+.dialogue {
+  margin-top: 220px;
+  padding: 20px;
+  border: 3px solid #f2c078;
+  background: #211a24;
+  line-height: 1.8;
+}
+
+.hint {
+  color: #d8bba4;
+  font-size: 0.9rem;
+}
+
+[hidden] {
+  display: none !important;
+}
+.menu-toggle {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+  width: 48px;
+  height: 44px;
+  padding: 9px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #d88758;
+  border: 3px solid #f2c078;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 4px;
+  background: #21151b;
+}
+
+.side-menu {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 240px;
+  padding: 88px 20px 20px;
+  background: #211a24;
+  border-right: 3px solid #f2c078;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+}
+
+.side-menu.is-open {
+  transform: translateX(0);
+}
+
+.menu-item {
+  width: 100%;
+  padding: 14px;
+  background: #d88758;
+  color: #21151b;
+  border: 3px solid #f2c078;
+  font: inherit;
+  cursor: pointer;
+}
+
+.dialogue {
+  cursor: pointer;
+}
+
+.next-hint {
+  text-align: right;
+  font-size: 0.85rem;
+  color: #d8bba4;
+}
+
+.dialogue {
+  position: relative;
+  padding-top: 32px;
+}
+
+.speaker-name {
+  position: absolute;
+  top: -18px;
+  left: 16px;
+  margin: 0;
+  padding: 5px 14px;
+  border: 3px solid #f2c078;
+  background: #392638;
+  color: #fff4df;
+}
+
+/* 会話ボックスをフェードイン */
+#dialogue-box.is-entering {
+  animation: fade-in 0.8s ease both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#game-screen {
+  position: relative;
+}
+
+.character-area {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#character-image {
+  position: absolute;
+  bottom: -70px; /* 会話ボックスの上に配置 */
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: none;
+  max-height: none;
+  width: 360px;
+  height: auto;
+  object-fit: contain;
+}
+
+#start-screen {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+#start-screen[hidden],
+#title-screen[hidden] {
+  display: none !important;
+}
+
+#start-screen p {
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+#title-screen.is-entering {
+  animation: fade-in 1.2s ease both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#stage-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.stage-button {
+  padding: 14px 32px;
+  border: 3px solid #f2c078;
+  background: #d88758;
+  color: #21151b;
+  font: inherit;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.stage-button:hover {
+  background: #f2c078;
+}
+
+/* タイトル画面とステージ選択画面に同じ背景を表示 */
+#title-screen,
+#stage-screen {
+  background:
+    linear-gradient(#241c2b66, #241c2b66),
+    url("media/タイトル画面.png") center / cover no-repeat;
+}
+
+#stage-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.stage-list {
+  width: min(520px, 100%);
+  height: 240px;
+  padding: 72px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  overscroll-behavior: contain;
+}
+
+.stage-list::-webkit-scrollbar {
+  display: none;
+}
+
+.stage-button,
+.coming-soon {
+  flex: 0 0 72px;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+  color: #fff4df;
+  font: inherit;
+  font-size: 1.3rem;
+  text-align: center;
+
+  scroll-snap-align: center;
+  transform: scale(0.85);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.stage-button {
+  cursor: pointer;
+}
+
+.stage-button:hover {
+  color: #f2c078;
+  background: transparent;
+}
+
+.stage-button.is-centered,
+.coming-soon.is-centered {
+  transform: scale(1.2);
+  color: #f2c078;
+}
+
+.coming-soon {
+  flex: 0 0 100px;
+  width: min(420px, 100%);
+  display: grid;
+  place-items: center;
+  border: 3px solid #f2c078;
+  background: #211a24dd;
+  color: #fff4df;
+  font-size: 1.2rem;
+}
+
+#serve-button {
+  display: block;
+  margin: 12px auto 0;
+}
+
+.dialogue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#comic-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+#comic-panel[hidden] {
+  display: none !important;
+}
+
+#comic-stage {
+  position: relative;
+  width: min(96vw, 1300px);
+  height: 78vh;
+}
+
+.comic-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.comic-layer.is-visible {
+  opacity: 1;
+}
+
+#comic-hint {
+  margin: 0;
+  color: #fff4df;
+}
+
+.comic-layer:nth-child(1) {
+  transform: translate(-100px, -100px);
+}
+
+.comic-layer:nth-child(2) {
+  transform: translate(45px, -100px);
+}
+
+.comic-layer:nth-child(3) {
+  transform: translate(-25px, 100px);
+}

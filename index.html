@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>こちら、ブラックコーヒーになります。</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game">
+    <section id="start-screen" class="screen" role="button" tabindex="0">
+      <p>ボタンを押してください</p>
+    </section>
+    <section id="title-screen" class="screen title-screen" hidden>
+      <p class="subtitle">COFFEE & STORIES</p>
+      <h1>こちら、ブラック<br>コーヒーになります。</h1>
+      <button id="play-button" class="pixel-button">淹れる</button>
+    </section>
+
+    <section id="stage-screen" class="screen" hidden>
+      <h2>ステージを選んでください</h2>
+
+      <div class="stage-list">
+        <button class="stage-button" data-stage="一日目">一日目</button>
+        <div class="coming-soon">近日公開</div>
+        <div class="coming-soon">近日公開</div>
+      </div>
+    </section>
+
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="メニューを開く"
+      aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+</button>
+
+<nav id="side-menu" class="side-menu" aria-hidden="true">
+  <button id="title-button" class="menu-item">タイトルに戻る</button>
+</nav>
+
+    <section id="game-screen" class="screen" hidden>
+      <p class="scene">喫茶店</p>
+      <img id="character-image" src="media/女子高生　普通.png" alt="女子高生">
+      <div
+        id="dialogue-box"
+        class="dialogue"
+        role="button"
+        tabindex="0"
+        aria-label="クリックして会話を進める"
+        hidden
+      >
+        <button id="serve-button" class="pixel-button" hidden>
+          コーヒーを提供する
+        </button>
+        <p id="speaker-name" class="speaker-name">ナレーション</p>
+        <p id="dialogue-text">お客さんがやってきた。</p>
+        <p class="next-hint">クリックして次へ</p>
+      </div>
+      <div id="comic-panel" hidden>
+        <div id="comic-stage"></div>
+        <p id="comic-hint">クリックして次へ</p>
+      </div>
+      <p class="hint">ゲーム画面はこれから作っていきます</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
